@@ -18,11 +18,6 @@ public class MainApplication {
 
         List<String> outputResult = SolutionHandler.getSolution(dayNo, inputData);
 
-        if(outputResult.size() == 2) {
-            System.out.println("Part 1: " + outputResult.get(0));
-            System.out.println("Part 2: " + outputResult.get(1));
-        } else {
-            System.out.println("ERROR: " + outputResult.get(0));
-        }
+        outputResult.forEach(str -> System.out.println(str));
     }
 }
