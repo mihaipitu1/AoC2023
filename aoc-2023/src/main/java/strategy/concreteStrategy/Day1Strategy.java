@@ -47,13 +47,13 @@ public class Day1Strategy implements ProblemSolvingStrategy {
                             String filteredString = str.substring(i, i + s.length());
                             if(inputKeys.contains(filteredString) && filteredString.equals(s)) {
                                 digitChars.add(inputMap.get(filteredString));
-                                i += (filteredString.length() - 1);
                             }
                         }
                     }
                 }
             }
-            codeValues.add(getNumber(digitChars));
+            int extractedNumber = getNumber(digitChars);
+            codeValues.add(extractedNumber);
         });
 
         var part2 = codeValues.stream().reduce(0, Integer::sum).toString();
