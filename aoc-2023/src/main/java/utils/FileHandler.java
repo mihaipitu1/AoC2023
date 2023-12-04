@@ -9,7 +9,7 @@ public class FileHandler {
     public static List<String> getInputParameters(String dayNo) {
         List<String> parsedLineInput = new ArrayList<>();
 
-        var fileName = String.format("inputDays/%s.txt",dayNo);
+        var fileName = String.format("./aoc-2023/inputDays/%s.txt", dayNo);
 
         try {
             FileInputStream fileInputStream = new FileInputStream(fileName);
