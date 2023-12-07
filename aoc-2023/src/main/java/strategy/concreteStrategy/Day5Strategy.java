@@ -7,14 +7,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Day5Strategy implements ProblemSolvingStrategy {
+
     @Override
     public List<String> solveProblem(List<String> inputData) {
         List<String> solution = new ArrayList<>();
 
-        List<List<PointMap>> mapList = new ArrayList<>();
         List<Long> seedsList = Arrays.stream(inputData.get(0).split(":")[1].split(" ")).toList()
                 .stream().filter(str -> str.length() > 0).map(string -> Long.parseLong(string)).toList();
 
+
+        List<List<PointMap>> mapList = new ArrayList<>();
         int i = 3;
         List<PointMap> mapElement = new ArrayList<>();
         while (i < inputData.size()) {
@@ -37,21 +39,8 @@ public class Day5Strategy implements ProblemSolvingStrategy {
 
         // Part1
         Long part1Score = 0l;
-        List<Long> locationList = new ArrayList<>();
 
-        for (Long seed : seedsList) {
-            Long current = seed;
-            for (List<PointMap> map : mapList) {
-                for (PointMap point : map) {
-                    Long diff = current - point.source;
-                    if (diff < point.range && diff >= 0) {
-                        current = point.destination + diff;
-                        break;
-                    }
-                }
-            }
-            locationList.add(current);
-        }
+        List<Long> locationList = getLocation(seedsList, mapList);
 
         part1Score = locationList.stream().min(Long::compareTo).get();
 
@@ -81,7 +70,6 @@ public class Day5Strategy implements ProblemSolvingStrategy {
                 Long diff = current - seedsList.get(i);
                 if (diff >= 0 && diff < seedsList.get(i + 1)) {
                     flag = true;
-                    part2Score = current;
                 }
             }
             if (!flag) {
@@ -111,5 +99,31 @@ public class Day5Strategy implements ProblemSolvingStrategy {
         }
     }
 
+    private List<Long> getLocation(List<Long> seedsList, List<List<PointMap>> mapList) {
+        List<Long> locationList = new ArrayList<>();
+        for (Long seed : seedsList) {
+            Long current = seed;
+            for (List<PointMap> map : mapList) {
+                for (PointMap point : map) {
+                    Long diff = current - point.source;
+                    if (diff < point.range && diff >= 0) {
+                        current = point.destination + diff;
+                        break;
+                    }
+                }
+            }
+            locationList.add(current);
+        }
+        return locationList;
+    }
 
+    private List<Long> getIntersectionRanges(List<Long> seedsList) {
+        List<Long> intersection = new ArrayList<>();
+        intersection.set(0, seedsList.get(0));
+        intersection.set(1, seedsList.get(0) + seedsList.get(1) - 1);
+        for (int k = 2; k < seedsList.size(); k += 2) {
+
+        }
+        return intersection;
+    }
 }
